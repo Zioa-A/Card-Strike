@@ -1,40 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PlayerDropZone : MonoBehaviour, IDropHandler
 {
+    public ManaManager manaManager;
 
-     public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData)
     {
-        //get the object that was dropped onto the drop zone
         GameObject droppedObject = eventData.pointerDrag;
-        
-        
-        if(droppedObject == null)
+
+        if (droppedObject == null)
         {
             return;
         }
 
-        //get card data script form object if it has it its the card
         CardData cardData = droppedObject.GetComponent<CardData>();
 
-        if(droppedObject != null)
+        if (cardData != null)
         {
-            Debug.Log("player used " + cardData.cardName);
+            if (manaManager.CanUseCard(cardData.ManaCost))
+            {
+                manaManager.SpendMana(cardData.ManaCost);
+                Debug.Log("Player used " + cardData.cardName);
+            }
+            else
+            {
+                Debug.Log("Not enough mana to use " + cardData.cardName);
+            }
         }
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
