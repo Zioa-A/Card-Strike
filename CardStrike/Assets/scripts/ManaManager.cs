@@ -57,15 +57,15 @@ public class ManaManager : MonoBehaviour
 
     public int manaRestoreAmount = 3;
 
-public void RestoreMana()
-{
-    currentMana += manaRestoreAmount;
-
-    if (currentMana > maxMana)
+    public void RestoreMana()
     {
-        currentMana = maxMana;
-    }
+        currentMana += manaRestoreAmount;
 
-    updateManaUI();
-}
+        if (currentMana > maxMana)
+        {
+            currentMana = maxMana;
+        }
+
+        updateManaUI();
+    }
 }
