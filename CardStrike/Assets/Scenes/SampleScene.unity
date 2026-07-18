@@ -755,6 +755,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228431608}
   m_CullTransparentMesh: 1
+--- !u!1 &365678478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 365678479}
+  m_Layer: 5
+  m_Name: EnemyDamagePopupPint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &365678479
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365678478}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 846663747}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: -50, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1001 &437754073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1876,6 +1911,7 @@ RectTransform:
   m_Children:
   - {fileID: 1408326403}
   - {fileID: 1091780388}
+  - {fileID: 365678479}
   m_Father: {fileID: 1224125537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
@@ -1942,6 +1978,8 @@ MonoBehaviour:
   attackSpeed: 8
   attackRotationZ: 10
   healthText: {fileID: 1091780390}
+  damagePopupPrefab: {fileID: 1295629291006329240, guid: 93e3e7192481e774697b0f1185f945d1, type: 3}
+  damagePopupSpawnPoint: {fileID: 365678479}
 --- !u!1 &958488648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3410,6 +3448,7 @@ RectTransform:
   m_Children:
   - {fileID: 517791323}
   - {fileID: 558253764}
+  - {fileID: 2101781369}
   m_Father: {fileID: 1224125537}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -3471,6 +3510,8 @@ MonoBehaviour:
   maxHealth: 50
   currentHealth: 0
   healthText: {fileID: 517791325}
+  damagePopupPrefab: {fileID: 1295629291006329240, guid: 93e3e7192481e774697b0f1185f945d1, type: 3}
+  damagePopupSpawnPoint: {fileID: 2101781369}
 --- !u!1 &2080317615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3687,6 +3728,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2101781368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2101781369}
+  m_Layer: 5
+  m_Name: 'PlayerDamagePopupPint '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2101781369
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101781368}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2030747934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 20, y: 30}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 1, y: 1}
 --- !u!1 &2137232212
 GameObject:
   m_ObjectHideFlags: 0

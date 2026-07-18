@@ -14,6 +14,11 @@ public class Player : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI healthText;
 
+
+    [Header("Damage Popup")]
+    public GameObject damagePopupPrefab;
+    public Transform damagePopupSpawnPoint;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -42,11 +47,28 @@ public class Player : MonoBehaviour
             gameManager.PlayerLoses();
             Debug.Log("Player defeated!");
         }
+
+        ShowDamagePopup(damageAmount);
     }
 
     void UpdateHealthUI()
     {
        
         healthText.text = "Player HP: " + currentHealth + " / " + maxHealth;
+    }
+
+    void ShowDamagePopup(int damageAmount)
+    {
+        if (damagePopupPrefab != null && damagePopupSpawnPoint != null)
+        {
+            GameObject popup = Instantiate(damagePopupPrefab, damagePopupSpawnPoint.position, Quaternion.identity, damagePopupSpawnPoint.parent);
+
+            DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
+
+            if (damagePopup != null)
+            {
+                damagePopup.Setup(damageAmount);
+            }
+        }
     }
 }

@@ -27,6 +27,10 @@ public class Enemy : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI healthText;
 
+    [Header("Damage Popup")]
+    public GameObject damagePopupPrefab;
+    public Transform damagePopupSpawnPoint;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -41,6 +45,8 @@ public class Enemy : MonoBehaviour
     {
         // Remove health based on card damage
         currentHealth -= damageAmount;
+
+        ShowDamagePopup(damageAmount);
 
         // Stop health from going below 0
         if (currentHealth < 0)
@@ -99,7 +105,6 @@ public class Enemy : MonoBehaviour
 
             yield return null;
         }
-
         // Make sure enemy ends exactly where it started
         enemyRect.anchoredPosition = enemyStartPosition;
         enemyRect.localRotation = enemyStartRotation;
@@ -110,5 +115,20 @@ public class Enemy : MonoBehaviour
     public void UpdateHealthUI()
     {
         healthText.text = "Enemy HP: " + currentHealth.ToString() + " / " + maxHealth.ToString();
+    }
+
+    void ShowDamagePopup(int damageAmount)
+    {
+        if (damagePopupPrefab != null && damagePopupSpawnPoint != null)
+        {
+            GameObject popup = Instantiate(damagePopupPrefab, damagePopupSpawnPoint.position, Quaternion.identity, damagePopupSpawnPoint.parent);
+
+            DamagePopup damagePopup = popup.GetComponent<DamagePopup>();
+
+            if (damagePopup != null)
+            {
+                damagePopup.Setup(damageAmount);
+            }
+        }
     }
 }
