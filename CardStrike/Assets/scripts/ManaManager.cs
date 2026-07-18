@@ -46,7 +46,7 @@ public class ManaManager : MonoBehaviour
 
     public void updateManaUI()
     {
-        manaText.text = currentMana.ToString() + "/" + maxMana.ToString();
+        manaText.text = "Mana "+currentMana.ToString() + "/" + maxMana.ToString();
     }
 
     // Update is called once per frame

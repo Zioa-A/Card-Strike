@@ -5,6 +5,9 @@ using TMPro;
 
 public class Enemy : MonoBehaviour
 {
+
+    public GameManager gameManager;
+    
     [Header("Health Settings")]
     public int maxHealth = 50;
     public int currentHealth;
@@ -52,6 +55,7 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("Enemy defeated!");
+            gameManager.StageCleared();
         }
     }
 

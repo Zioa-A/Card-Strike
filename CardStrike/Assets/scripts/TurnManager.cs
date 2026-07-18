@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class TurnManager : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class TurnManager : MonoBehaviour
     public Player player;
     public Enemy enemy;
     public ManaManager manaManager;
+
+
+    [Header("UI")]
+    public TextMeshProUGUI TurnText;
 
     void Start()
     {
@@ -36,9 +41,12 @@ public class TurnManager : MonoBehaviour
     void EnemyTurn()
     {
         Debug.Log("Enemy turn started.");
+        
+        UpdateTurnText();
 
         // Enemy handles its own attack animation and damage
         enemy.AttackPlayer(player,this);
+
     }
 
     public void StartPlayerTurn()
@@ -49,6 +57,18 @@ public class TurnManager : MonoBehaviour
         // Refill mana at the start of the player's turn
         manaManager.RestoreMana();
 
+        UpdateTurnText() ;
         Debug.Log("Player turn started.");
+    }
+    void UpdateTurnText()
+    {
+        if (isPlayerTurn)
+        {
+            TurnText.text = "Your Turn";
+        }
+        else
+        {
+            TurnText.text = "Enemy Turn";
+        }
     }
 }

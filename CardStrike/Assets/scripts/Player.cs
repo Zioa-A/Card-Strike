@@ -5,6 +5,8 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
+   public GameManager gameManager;
+
     [Header("Health Settings")]
     public int maxHealth = 50;
     public int currentHealth;
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
         // Check if the player is dead
         if (currentHealth <= 0)
         {
+            gameManager.PlayerLoses();
             Debug.Log("Player defeated!");
         }
     }
