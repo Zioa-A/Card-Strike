@@ -76,7 +76,10 @@ public class GameManager : MonoBehaviour
 
         LoadNextStage();
     }
-   
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
 
 }
