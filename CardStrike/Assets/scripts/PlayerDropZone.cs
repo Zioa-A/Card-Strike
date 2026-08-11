@@ -4,11 +4,12 @@ using System.Collections;
 
 public class PlayerDropZone : MonoBehaviour, IDropHandler
 {
+    [Header("Managers")]
     public ManaManager manaManager;
-
     public TurnManager turnManager;
+    public EnemyManager enemyManager;
 
-    [Header("Attack Anaimation")]
+    [Header("Attack Animation")]
     public RectTransform playerRect;
     public float moveDistance = 80f;
     public float attackSpeed = 8f;
@@ -23,7 +24,6 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
         playerStartRotation = playerRect.rotation;
     }
 
-
     public void OnDrop(PointerEventData eventData)
     {
         GameObject droppedObject = eventData.pointerDrag;
@@ -35,8 +35,10 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
 
         CardData cardData = droppedObject.GetComponent<CardData>();
 
-        GameObject enemyObject = GameObject.FindWithTag("Enemy");
-        Enemy enemy = enemyObject.GetComponent<Enemy>();
+        if (cardData == null)
+        {
+            return;
+        }
 
         if (!turnManager.CanPlayerUseCard())
         {
@@ -44,27 +46,29 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
-        if (cardData != null)
+        if (!manaManager.CanUseCard(cardData.ManaCost))
         {
-            if (manaManager.CanUseCard(cardData.ManaCost))
-            {
-                manaManager.SpendMana(cardData.ManaCost);
-                Debug.Log("Player used " + cardData.cardName);
-                StartCoroutine(PlayerAttackAnimation(enemy, cardData.Damage));
-                turnManager.EndPlayerTurn();
-
-            }
-            else
-            {
-                Debug.Log("Not enough mana to use " + cardData.cardName);
-            }
-
+            Debug.Log("Not enough mana to use " + cardData.cardName);
+            return;
         }
+
+        Enemy enemy = enemyManager.GetRandomAliveEnemy();
+
+        if (enemy == null)
+        {
+            Debug.Log("No alive enemies left.");
+            return;
+        }
+
+        manaManager.SpendMana(cardData.ManaCost);
+
+        Debug.Log("Player used " + cardData.cardName);
+        Debug.Log("Random enemy selected: " + enemy.gameObject.name);
+
+        StartCoroutine(PlayerAttackAnimation(enemy, cardData.Damage));
     }
 
-
-    // This coroutine creates a simple attack animation:
-    // the player lunges forward, rotates slightly, damages the enemy, then returns back to normal.
+    // This moves the player forward, damages the random enemy, then moves the player back.
     private IEnumerator PlayerAttackAnimation(Enemy enemy, int damage)
     {
         Vector2 attackPosition = playerStartPosition + new Vector2(moveDistance, 0);
@@ -72,7 +76,6 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
 
         float timer = 0f;
 
-        // Move toward enemy
         while (timer < 1f)
         {
             timer += Time.deltaTime * attackSpeed;
@@ -83,12 +86,10 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             yield return null;
         }
 
-        // Enemy takes damage at the hit moment
         enemy.TakeDamage(damage);
 
         timer = 0f;
 
-        // Move back to original position
         while (timer < 1f)
         {
             timer += Time.deltaTime * attackSpeed;
@@ -101,5 +102,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
 
         playerRect.anchoredPosition = playerStartPosition;
         playerRect.localRotation = playerStartRotation;
+
+        turnManager.EndPlayerTurn();
     }
 }

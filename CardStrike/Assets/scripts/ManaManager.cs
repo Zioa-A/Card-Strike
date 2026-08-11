@@ -8,8 +8,8 @@ public class ManaManager : MonoBehaviour
 {
 
     [Header("Mana Settings")]
-    public int maxMana = 10;
-    public int currentMana = 10;
+    public int maxMana = 12;
+    public int currentMana = 12;
 
     [UnitHeaderInspectable("UI")]
     public TextMeshProUGUI manaText;
