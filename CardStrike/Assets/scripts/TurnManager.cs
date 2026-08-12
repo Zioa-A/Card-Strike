@@ -42,7 +42,7 @@ public class TurnManager : MonoBehaviour
     {
         enemyTurnSequenceRunning = true;
 
-        Debug.Log("Enemy turn started.");
+        //Debug.Log("Enemy turn started.");
 
         UpdateTurnText();
 
@@ -78,7 +78,7 @@ public class TurnManager : MonoBehaviour
 
         UpdateTurnText();
 
-        Debug.Log("Player turn started.");
+        //Debug.Log("Player turn started.");
     }
 
     void UpdateTurnText()

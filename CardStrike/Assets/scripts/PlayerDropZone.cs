@@ -65,11 +65,11 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
         Debug.Log("Player used " + cardData.cardName);
         Debug.Log("Random enemy selected: " + enemy.gameObject.name);
 
-        StartCoroutine(PlayerAttackAnimation(enemy, cardData.Damage));
+        StartCoroutine(PlayerAttackAnimation(enemy, cardData));
     }
 
-    // This moves the player forward, damages the random enemy, then moves the player back.
-    private IEnumerator PlayerAttackAnimation(Enemy enemy, int damage)
+    // This handles the attack movement first, then applies the selected card effect at the hit moment
+    private IEnumerator PlayerAttackAnimation(Enemy enemy, CardData cardData)
     {
         Vector2 attackPosition = playerStartPosition + new Vector2(moveDistance, 0);
         Quaternion attackRotation = Quaternion.Euler(0, 0, attackRotationZ);
@@ -86,7 +86,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             yield return null;
         }
 
-        enemy.TakeDamage(damage);
+        ApplyCardEffect(enemy, cardData);
 
         timer = 0f;
 
@@ -104,5 +104,62 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
         playerRect.localRotation = playerStartRotation;
 
         turnManager.EndPlayerTurn();
+    }
+
+    void ApplyCardEffect(Enemy enemy, CardData cardData)
+    {
+        switch (cardData.effectType)
+        {
+            case CardEffectType.BasicAttack:
+                enemy.TakeDamage(cardData.Damage);
+                break;
+
+            case CardEffectType.LoadedDice:
+                int diceRoll = Random.Range(1, 7);
+                int diceDamage = cardData.Damage * diceRoll;
+
+                Debug.Log("Loaded Dice rolled: " + diceRoll);
+                enemy.TakeDamage(diceDamage);
+                break;
+
+            case CardEffectType.CoinToss:
+                int coinFlip = Random.Range(0, 2);
+
+                if (coinFlip == 0)
+                {
+                    Debug.Log("Coin Toss: Heads. Double damage.");
+                    enemy.TakeDamage(cardData.Damage * 2);
+                }
+                else
+                {
+                    Debug.Log("Coin Toss: Tails. Normal damage for now. Player Vulnerable will be added after Player.cs update.");
+                    enemy.TakeDamage(cardData.Damage);
+                }
+
+                break;
+
+            case CardEffectType.BreakthroughStrike:
+                enemy.TakeDamage(cardData.Damage);
+                enemy.ApplyVulnerable(1);
+                break;
+
+            case CardEffectType.SilentPoison:
+                enemy.TakeDamage(cardData.Damage);
+                enemy.ApplyPoison(3);
+                break;
+
+            case CardEffectType.LifeSteal:
+                Debug.Log("Life Steal heal will be added after Player.cs update. For now it deals damage only.");
+                enemy.TakeDamage(cardData.Damage);
+                break;
+
+            case CardEffectType.ImNotStayingDown:
+                Debug.Log("I'm Not Staying Down will be added after Player.cs update.");
+                break;
+
+            default:
+                enemy.TakeDamage(cardData.Damage);
+                break;
+        }
     }
 }

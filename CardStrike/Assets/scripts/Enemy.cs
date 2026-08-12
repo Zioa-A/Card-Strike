@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 50;
     public int currentHealth;
 
+    [Header("Status Effects")]
+    public int poisonAmount = 0;
+    public int vulnerableAmount = 0;
+
     [Header("Attack Settings")]
     public int attackDamage = 5;
 
@@ -35,16 +39,27 @@ public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthUI();
 
-        // Save the enemy's starting position and rotation so it can return after attacking
+        // Save starting position and rotation for attack animation
         enemyStartPosition = enemyRect.anchoredPosition;
         enemyStartRotation = enemyRect.localRotation;
     }
 
     public void TakeDamage(int damageAmount)
     {
-        currentHealth -= damageAmount;
+        int finalDamage = damageAmount;
 
-        ShowDamagePopup(damageAmount);
+        // Vulnerable makes the next attack against this enemy deal 50% more damage
+        if (vulnerableAmount > 0)
+        {
+            finalDamage = Mathf.RoundToInt(finalDamage * 1.5f);
+            vulnerableAmount--;
+
+            Debug.Log(gameObject.name + " was Vulnerable. Damage increased to " + finalDamage);
+        }
+
+        currentHealth -= finalDamage;
+
+        ShowDamagePopup(finalDamage);
 
         if (currentHealth < 0)
         {
@@ -57,7 +72,6 @@ public class Enemy : MonoBehaviour
         {
             Debug.Log(gameObject.name + " defeated!");
 
-            // Ask EnemyManager to check if all enemies are dead
             if (enemyManager != null)
             {
                 enemyManager.CheckStageClear();
@@ -65,12 +79,39 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void ApplyPoison(int amount)
+    {
+        poisonAmount += amount;
+        Debug.Log(gameObject.name + " received " + amount + " Poison. Total Poison: " + poisonAmount);
+    }
+
+    public void ApplyVulnerable(int amount)
+    {
+        vulnerableAmount += amount;
+        Debug.Log(gameObject.name + " received " + amount + " Vulnerable. Total Vulnerable: " + vulnerableAmount);
+    }
+
+    public void ApplyPoisonDamage()
+    {
+        if (poisonAmount <= 0)
+        {
+            return;
+        }
+
+        Debug.Log(gameObject.name + " takes " + poisonAmount + " poison damage.");
+
+        int poisonDamage = poisonAmount;
+        poisonAmount--;
+
+        TakeDamage(poisonDamage);
+    }
+
     public void AttackPlayer(Player player, TurnManager turnManager)
     {
         StartCoroutine(EnemyAttackAnimation(player, turnManager));
     }
 
-    // This moves the enemy forward, damages the player, then moves the enemy back.
+    // Enemy moves forward, damages the player, then moves back
     private IEnumerator EnemyAttackAnimation(Player player, TurnManager turnManager)
     {
         Vector2 attackPosition = enemyStartPosition + new Vector2(moveDistance, 0);
