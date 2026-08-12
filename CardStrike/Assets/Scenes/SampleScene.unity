@@ -267,12 +267,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1880877966}
     m_Modifications:
     - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Damage: 4'
+      objectReference: {fileID: 0}
+    - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Cost: 2'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Silent Poison
       objectReference: {fileID: 0}
     - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -281,6 +293,10 @@ PrefabInstance:
     - target: {fileID: 4622741235200089946, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Name
       value: card (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Deal 4 damage and apply 3 Poison.
       objectReference: {fileID: 0}
     - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -368,15 +384,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: Damage
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: ManaCost
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardName
-      value: stab
+      value: Silent Poison
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: effectType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: cardDescription
+      value: Deal 4 damage and apply 3 Poison.
       objectReference: {fileID: 0}
     - target: {fileID: 7375404888775063680, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Color.b
@@ -497,8 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480c6ad34da71f54ba17ab22fa2c5756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMana: 10
-  currentMana: 10
+  maxMana: 12
+  currentMana: 12
   manaText: {fileID: 958488650}
   manaRestoreAmount: 3
 --- !u!1 &193734004
@@ -768,8 +792,16 @@ PrefabInstance:
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Cost: 2'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Breakthrough Strike
       objectReference: {fileID: 0}
     - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -778,6 +810,10 @@ PrefabInstance:
     - target: {fileID: 4622741235200089946, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Name
       value: card (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Deal 6 damage and make the enemy Vulnerable.
       objectReference: {fileID: 0}
     - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -865,7 +901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: Damage
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: ManaCost
@@ -873,7 +909,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardName
-      value: Slash
+      value: Breakthrough Strike
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: effectType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: cardDescription
+      value: Deal 6 damage and make the enemy Vulnerable.
       objectReference: {fileID: 0}
     - target: {fileID: 7375404888775063680, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Color.b
@@ -1741,12 +1785,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1880877966}
     m_Modifications:
     - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Damage: 0'
+      objectReference: {fileID: 0}
+    - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Cost: 4'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: I'm Not Staying Down
       objectReference: {fileID: 0}
     - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -1755,6 +1811,10 @@ PrefabInstance:
     - target: {fileID: 4622741235200089946, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Name
       value: card (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Survive the next fatal enemy attack with 1 HP.
       objectReference: {fileID: 0}
     - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -1842,7 +1902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: Damage
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: ManaCost
@@ -1850,7 +1910,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardName
-      value: medium attack
+      value: I'm Not Staying Down
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: effectType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: cardDescription
+      value: Survive the next fatal enemy attack with 1 HP.
       objectReference: {fileID: 0}
     - target: {fileID: 7375404888775063680, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Color.b
@@ -1967,7 +2035,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mana \n10 \\ 10"
+  m_text: "Mana \n12 \\ 12"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2969,12 +3037,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1880877966}
     m_Modifications:
     - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Damage: 10'
+      objectReference: {fileID: 0}
+    - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Cost: 3'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Life Steal
       objectReference: {fileID: 0}
     - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -2983,6 +3063,10 @@ PrefabInstance:
     - target: {fileID: 4622741235200089946, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Name
       value: card (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Deal 10 damage and heal for 30% of the damage dealt.
       objectReference: {fileID: 0}
     - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -3078,7 +3162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardName
-      value: heavey attack
+      value: LifeSteal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: effectType
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7375404888775063680, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Color.b
@@ -3559,7 +3647,7 @@ Transform:
   m_GameObject: {fileID: 1880877965}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36, y: -230, z: 1.7935225}
+  m_LocalPosition: {x: -36, y: -286.9, z: 1.7935225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3678,8 +3766,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 600646685}
-  maxHealth: 50
-  currentHealth: 0
+  maxHealth: 70
+  currentHealth: 70
+  vulnerableAmount: 0
+  surviveNextFatalHit: 0
   healthText: {fileID: 517791325}
   damagePopupPrefab: {fileID: 1295629291006329240, guid: 93e3e7192481e774697b0f1185f945d1, type: 3}
   damagePopupSpawnPoint: {fileID: 2101781369}
@@ -4064,12 +4154,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 1880877966}
     m_Modifications:
     - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Damage: 7'
+      objectReference: {fileID: 0}
+    - target: {fileID: 955968653056025734, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: 'Cost: 2'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912692684590860321, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Coin Toss
       objectReference: {fileID: 0}
     - target: {fileID: 3686106944467760596, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -4078,6 +4180,10 @@ PrefabInstance:
     - target: {fileID: 4622741235200089946, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Name
       value: card
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: m_text
+      value: Deal 7 damage. Heads deals 7 extra damage. Tails makes the player Vulnerable.
       objectReference: {fileID: 0}
     - target: {fileID: 4855266110731088917, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
@@ -4169,7 +4275,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardName
-      value: Block
+      value: Coin Toss
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
+      propertyPath: effectType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7375404888775063680, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Color.b
