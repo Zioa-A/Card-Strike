@@ -30,6 +30,11 @@ public class Enemy : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI healthText;
 
+    // Temporary status icons.
+    // These can later be replaced with proper UI images from the artist.
+    public GameObject poisonIcon;
+    public GameObject vulnerableIcon;
+
     [Header("Damage Popup")]
     public GameObject damagePopupPrefab;
     public Transform damagePopupSpawnPoint;
@@ -39,8 +44,7 @@ public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
         UpdateHealthUI();
 
-        // Saves the enemy's original UI position and rotation
-        // so the attack animation can return it back afterwards.
+        // Save starting position and rotation for attack animation
         enemyStartPosition = enemyRect.anchoredPosition;
         enemyStartRotation = enemyRect.localRotation;
     }
@@ -55,6 +59,12 @@ public class Enemy : MonoBehaviour
         {
             finalDamage = Mathf.RoundToInt(finalDamage * 1.5f);
             vulnerableAmount--;
+
+            // Hides the Vulnerable icon once the effect has been used up.
+            if (vulnerableAmount <= 0 && vulnerableIcon != null)
+            {
+                vulnerableIcon.SetActive(false);
+            }
 
             Debug.Log(
                 gameObject.name +
@@ -86,6 +96,12 @@ public class Enemy : MonoBehaviour
         // Adds poison instead of replacing the existing amount.
         poisonAmount += amount;
 
+        // Shows the poison icon while the enemy is poisoned.
+        if (poisonIcon != null)
+        {
+            poisonIcon.SetActive(true);
+        }
+
         Debug.Log(
             gameObject.name +
             " received " +
@@ -99,6 +115,12 @@ public class Enemy : MonoBehaviour
     {
         // Adds Vulnerable stacks to the enemy.
         vulnerableAmount += amount;
+
+        // Shows the Vulnerable icon while the effect is active.
+        if (vulnerableIcon != null)
+        {
+            vulnerableIcon.SetActive(true);
+        }
 
         Debug.Log(
             gameObject.name +
@@ -131,6 +153,12 @@ public class Enemy : MonoBehaviour
         // Example: 3 damage -> 2 damage -> 1 damage -> finished.
         poisonAmount--;
 
+        // Hides the poison icon once the poison effect reaches 0.
+        if (poisonAmount <= 0 && poisonIcon != null)
+        {
+            poisonIcon.SetActive(false);
+        }
+
         // Poison damages health directly instead of using TakeDamage().
         // This prevents poison from consuming Vulnerable.
         currentHealth -= poisonDamage;
@@ -156,12 +184,8 @@ public class Enemy : MonoBehaviour
         StartCoroutine(EnemyAttackAnimation(player, turnManager));
     }
 
-    // Moves the enemy forward, damages the player,
-    // then moves the enemy back to its starting position.
-    private IEnumerator EnemyAttackAnimation(
-        Player player,
-        TurnManager turnManager
-    )
+    // Enemy moves forward, damages the player, then moves back
+    private IEnumerator EnemyAttackAnimation(Player player, TurnManager turnManager)
     {
         Vector2 attackPosition =
             enemyStartPosition + new Vector2(moveDistance, 0);
@@ -177,18 +201,10 @@ public class Enemy : MonoBehaviour
             timer += Time.deltaTime * attackSpeed;
 
             enemyRect.anchoredPosition =
-                Vector2.Lerp(
-                    enemyStartPosition,
-                    attackPosition,
-                    timer
-                );
+                Vector2.Lerp(enemyStartPosition, attackPosition, timer);
 
             enemyRect.localRotation =
-                Quaternion.Lerp(
-                    enemyStartRotation,
-                    attackRotation,
-                    timer
-                );
+                Quaternion.Lerp(enemyStartRotation, attackRotation, timer);
 
             yield return null;
         }
@@ -204,18 +220,10 @@ public class Enemy : MonoBehaviour
             timer += Time.deltaTime * attackSpeed;
 
             enemyRect.anchoredPosition =
-                Vector2.Lerp(
-                    attackPosition,
-                    enemyStartPosition,
-                    timer
-                );
+                Vector2.Lerp(attackPosition, enemyStartPosition, timer);
 
             enemyRect.localRotation =
-                Quaternion.Lerp(
-                    attackRotation,
-                    enemyStartRotation,
-                    timer
-                );
+                Quaternion.Lerp(attackRotation, enemyStartRotation, timer);
 
             yield return null;
         }
@@ -251,16 +259,9 @@ public class Enemy : MonoBehaviour
 
     // Creates the damage popup and tells it
     // whether the damage is normal or poison damage.
-
-    void ShowDamagePopup(
-        int damageAmount,
-        bool isPoisonDamage
-    )
+    void ShowDamagePopup(int damageAmount, bool isPoisonDamage)
     {
-        if (
-            damagePopupPrefab != null &&
-            damagePopupSpawnPoint != null
-        )
+        if (damagePopupPrefab != null && damagePopupSpawnPoint != null)
         {
             GameObject popup = Instantiate(
                 damagePopupPrefab,
