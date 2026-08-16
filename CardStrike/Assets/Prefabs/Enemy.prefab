@@ -91,10 +91,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 954561e9d513c3d459f0c2938b9694dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  maxHealth: 50
+  enemyManager: {fileID: 0}
+  maxHealth: 10
   currentHealth: 0
-  attackDamage: 5
+  poisonAmount: 0
+  vulnerableAmount: 0
+  attackDamage: 3
   enemyRect: {fileID: 8692932600462248725}
   moveDistance: -80
   attackSpeed: 8

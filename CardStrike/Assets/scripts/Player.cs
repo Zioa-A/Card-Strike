@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
 
             if (damagePopup != null)
             {
-                damagePopup.Setup(damageAmount);
+                damagePopup.Setup(damageAmount,false);
             }
         }
     }

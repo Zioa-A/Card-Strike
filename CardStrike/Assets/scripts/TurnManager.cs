@@ -8,6 +8,10 @@ public class TurnManager : MonoBehaviour
     public bool isPlayerTurn = true;
     public bool playerUsedCard = false;
 
+    [Header("Enemy Turn Timing")]
+    public float firstEnemyAttackDelay = 1f;
+    public float delayBetweenEnemyAttacks = 0.5f;
+
     [Header("References")]
     public Player player;
     public EnemyManager enemyManager;
@@ -42,21 +46,45 @@ public class TurnManager : MonoBehaviour
     {
         enemyTurnSequenceRunning = true;
 
-        //Debug.Log("Enemy turn started.");
-
         UpdateTurnText();
 
-        // Each alive enemy attacks one by one
+        yield return new WaitForSeconds(0.5f); // Small delay before poison ticks
+
+        // -----------------------------
+        // POISON TICKS FIRST
+        // -----------------------------
+        // Every alive enemy takes its poison damage
+        // at the beginning of the enemy turn.
+        foreach (Enemy enemy in enemyManager.enemies)
+        {
+            if (enemy != null && enemy.currentHealth > 0)
+            {
+                enemy.ApplyPoisonDamage();
+            }
+        }
+
+
+        // -----------------------------
+        // FIRST ENEMY DELAY
+        // -----------------------------
+      
+        yield return new WaitForSeconds(firstEnemyAttackDelay);
+
+
+        // -----------------------------
+        // ENEMIES ATTACK ONE BY ONE
+        // -----------------------------
         foreach (Enemy enemy in enemyManager.enemies)
         {
             if (enemy != null && enemy.currentHealth > 0)
             {
                 enemy.AttackPlayer(player, this);
 
-                // Wait so enemies do not all attack at the exact same time
-                yield return new WaitForSeconds(1.2f);
+                // Wait before the next enemy attacks.
+                yield return new WaitForSeconds(delayBetweenEnemyAttacks);
             }
         }
+
 
         enemyTurnSequenceRunning = false;
 
@@ -65,7 +93,8 @@ public class TurnManager : MonoBehaviour
 
     public void StartPlayerTurn()
     {
-        // Stops individual enemies from restarting the player turn early
+        // Stops individual enemies from restarting
+        // the player turn early.
         if (enemyTurnSequenceRunning)
         {
             return;

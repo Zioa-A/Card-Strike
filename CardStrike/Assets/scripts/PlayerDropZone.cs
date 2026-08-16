@@ -8,6 +8,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
     public ManaManager manaManager;
     public TurnManager turnManager;
     public EnemyManager enemyManager;
+    public Player player;
 
     [Header("Attack Animation")]
     public RectTransform playerRect;
@@ -52,6 +53,19 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
+        manaManager.SpendMana(cardData.ManaCost);
+
+        Debug.Log("Player used " + cardData.cardName);
+
+        // Survival card affects the player, so it does not need to choose an enemy
+        if (cardData.effectType == CardEffectType.ImNotStayingDown)
+        {
+            ApplyCardEffect(null, cardData);
+            turnManager.EndPlayerTurn();
+            return;
+        }
+
+        // All attack cards choose a random alive enemy
         Enemy enemy = enemyManager.GetRandomAliveEnemy();
 
         if (enemy == null)
@@ -60,15 +74,12 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
-        manaManager.SpendMana(cardData.ManaCost);
-
-        Debug.Log("Player used " + cardData.cardName);
         Debug.Log("Random enemy selected: " + enemy.gameObject.name);
 
         StartCoroutine(PlayerAttackAnimation(enemy, cardData));
     }
 
-    // This handles the attack movement first, then applies the selected card effect at the hit moment
+    // Moves the player forward, applies the card effect at the hit moment, then moves back
     private IEnumerator PlayerAttackAnimation(Enemy enemy, CardData cardData)
     {
         Vector2 attackPosition = playerStartPosition + new Vector2(moveDistance, 0);
@@ -86,6 +97,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             yield return null;
         }
 
+        // Card effect happens here, when the player reaches the enemy
         ApplyCardEffect(enemy, cardData);
 
         timer = 0f;
@@ -132,29 +144,51 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
                 }
                 else
                 {
-                    Debug.Log("Coin Toss: Tails. Normal damage for now. Player Vulnerable will be added after Player.cs update.");
+                    Debug.Log("Coin Toss: Tails. Player takes 1 Vulnerable.");
                     enemy.TakeDamage(cardData.Damage);
+
+                    // Tails makes the player take extra damage from the next enemy attack
+                    if (player != null)
+                    {
+                        player.ApplyVulnerable(1);
+                    }
                 }
 
                 break;
 
             case CardEffectType.BreakthroughStrike:
                 enemy.TakeDamage(cardData.Damage);
+
+                // Enemy takes extra damage from the next attack
                 enemy.ApplyVulnerable(1);
                 break;
 
             case CardEffectType.SilentPoison:
                 enemy.TakeDamage(cardData.Damage);
+
+                // Poison will damage the enemy at the start of enemy turns
                 enemy.ApplyPoison(3);
                 break;
 
             case CardEffectType.LifeSteal:
-                Debug.Log("Life Steal heal will be added after Player.cs update. For now it deals damage only.");
                 enemy.TakeDamage(cardData.Damage);
+
+                // Heal is 30% of the card's damage value
+                if (player != null)
+                {
+                    int healAmount = Mathf.RoundToInt(cardData.Damage * 0.3f);
+                    player.Heal(healAmount);
+                }
+
                 break;
 
             case CardEffectType.ImNotStayingDown:
-                Debug.Log("I'm Not Staying Down will be added after Player.cs update.");
+                // Player survives the next fatal enemy attack with 1 HP
+                if (player != null)
+                {
+                    player.ActivateSurvivalProtection();
+                }
+
                 break;
 
             default:

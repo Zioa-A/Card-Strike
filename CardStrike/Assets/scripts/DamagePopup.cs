@@ -6,15 +6,17 @@ public class DamagePopup : MonoBehaviour
 {
     [Header("UI")]
     public TextMeshProUGUI damageText;
+    public Color normalDamageColor = Color.white;
+    public Color poisonDamageColor = Color.magenta;
 
     [Header("Animation")]
     public float moveUpDistance = 80f;
-    public float lifeTime = 1f;
+    public float lifeTime = 1.5f;
 
     private RectTransform rectTransform;
     private CanvasGroup canvasGroup;
 
-    public void Setup(int damageAmount)
+    public void Setup(int damageAmount, bool isPoisonDamage)
     {
         if (damageText == null)
         {
@@ -22,6 +24,15 @@ public class DamagePopup : MonoBehaviour
         }
 
         damageText.text = "-" + damageAmount.ToString();
+        if (isPoisonDamage)
+        {
+            damageText.color = poisonDamageColor;
+        }
+        else
+        {
+            damageText.color = normalDamageColor;
+        }
+
 
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
