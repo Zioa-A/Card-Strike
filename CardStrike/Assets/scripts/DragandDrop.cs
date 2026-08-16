@@ -35,7 +35,7 @@ public class DragandDrop : MonoBehaviour,
     [Header("Hover Settings")]
     public float hoverScale= 1.1f; 
     public float dragedScale = 1.15f; 
-    public float hoverMoveAmount = 50f; 
+    public float hoverMoveAmount = 20f; 
 
 
     // Start is called before the first frame update

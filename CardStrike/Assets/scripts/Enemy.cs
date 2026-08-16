@@ -277,7 +277,8 @@ public class Enemy : MonoBehaviour
             {
                 damagePopup.Setup(
                     damageAmount,
-                    isPoisonDamage
+                    isPoisonDamage,
+                    false, false
                 );
             }
         }
