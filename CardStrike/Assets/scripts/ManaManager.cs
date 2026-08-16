@@ -18,7 +18,7 @@ public class ManaManager : MonoBehaviour
     void Start()
     {
         currentMana = maxMana;
-        updateManaUI();
+        updateManaUI(); 
     }
 
     public bool CanUseCard(int Manacost)
