@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviour
     [Header("UI")]
     public GameObject stageClearPanel;
     public GameObject losePanel;
+    public GameObject pausePanel;
 
     void Start()
     {
-        // Hide panels at the start of the stage
+        // Hide panels at the start of the stage.
         if (stageClearPanel != null)
         {
             stageClearPanel.SetActive(false);
@@ -22,6 +23,11 @@ public class GameManager : MonoBehaviour
         if (losePanel != null)
         {
             losePanel.SetActive(false);
+        }
+
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
         }
     }
 
@@ -36,7 +42,17 @@ public class GameManager : MonoBehaviour
             stageClearPanel.SetActive(true);
         }
 
-        StartCoroutine(GoToNextStageAfterDelay());
+        // Level 1 automatically moves to Level 2 after 2 seconds.
+        if (SceneManager.GetActiveScene().name == "Level 1")
+        {
+            StartCoroutine(GoToLevel2AfterDelay());
+        }
+
+        // Level 2 stays on the Victory panel.
+        else if (SceneManager.GetActiveScene().name == "Level 2")
+        {
+            Debug.Log("Final level cleared. Victory!");
+        }
     }
 
     public void PlayerLoses()
@@ -57,29 +73,63 @@ public class GameManager : MonoBehaviour
         return isGameOver;
     }
 
+    // Restarts the current level.
+    // Useful for the Lose panel.
     public void RestartStage()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().name
+        );
     }
 
-    public void LoadNextStage()
+    // Used by the Victory panel.
+    // Starts the game again from Level 1.
+    public void RestartGame()
     {
-        // For now this just restarts the same scene.
-        // Later, we can change this to load the next level.
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Level 1");
     }
 
-    //this corroutine waits for 2 seconds before loading the next stage
-    private IEnumerator GoToNextStageAfterDelay()
+    // Takes the player back to the main menu.
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("starting_menu");
+    }
+
+    // Used by the Play button on the main menu.
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Level 1");
+    }
+
+    // Waits 2 seconds after clearing Level 1,
+    // then automatically loads Level 2.
+    private IEnumerator GoToLevel2AfterDelay()
     {
         yield return new WaitForSeconds(2f);
 
-        LoadNextStage();
+        SceneManager.LoadScene("Level 2");
     }
 
     public void Quit()
     {
         Application.Quit();
+
+        Debug.Log("Game closed.");
     }
 
+    public void OpenPauseMenu()
+    {
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(true);
+        }
+    }
+
+    public void ClosePauseMenu()
+    {
+        if (pausePanel != null)
+        {
+            pausePanel.SetActive(false);
+        }
+    }
 }
