@@ -37,14 +37,6 @@ public class DragandDrop : MonoBehaviour,
     public float dragedScale = 1.15f;
     public float hoverMoveAmount = 20f;
 
-    [Header("Player Turn Position")]
-    public TurnManager turnManager;
-
-    // How far all cards move up during the player's turn.
-    public float playerTurnMoveAmount = 40f;
-
-    private bool isHovering = false;
-
     [Header("Tooltip")]
     public CardTooltip cardTooltip;
 
@@ -57,15 +49,9 @@ public class DragandDrop : MonoBehaviour,
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
 
-        // Gets this card's data for the tooltip.
+        // Gets this card's data so the tooltip knows
+        // which card information to display.
         cardData = GetComponent<CardData>();
-
-        // Finds TurnManager automatically if it has not
-        // been assigned manually in the Inspector.
-        if (turnManager == null)
-        {
-            turnManager = FindFirstObjectByType<TurnManager>();
-        }
 
         originalPosition = rectTransform.anchoredPosition;
         originalScale = rectTransform.localScale;
@@ -79,11 +65,11 @@ public class DragandDrop : MonoBehaviour,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isHovering = true;
-
         if (!isDragging)
         {
             targetScale = originalScale * hoverScale;
+            targetposition =
+                originalPosition + new Vector2(0, hoverMoveAmount);
 
             // Shows this card's information in the tooltip.
             if (cardTooltip != null && cardData != null)
@@ -95,11 +81,10 @@ public class DragandDrop : MonoBehaviour,
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isHovering = false;
-
         if (!isDragging)
         {
             targetScale = originalScale;
+            targetposition = originalPosition;
 
             // Hides the tooltip when the mouse leaves the card.
             if (cardTooltip != null)
@@ -118,18 +103,18 @@ public class DragandDrop : MonoBehaviour,
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
-
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
 
         if (droppeOnPlayer)
         {
-            // Handle the drop on player logic here.
+            // Handle the drop on player logic here
             Debug.Log("Dropped on player!");
         }
         else
         {
-            // Returns the card back into the hand.
+            // Return to original position if not dropped on player
+            rectTransform.anchoredPosition = originalPosition;
             rectTransform.localScale = originalScale;
             targetRotation = originalRotation;
         }
@@ -139,7 +124,7 @@ public class DragandDrop : MonoBehaviour,
     {
         isDragging = true;
 
-        // Hides the tooltip when dragging starts.
+        // Hides the tooltip when the player starts dragging the card.
         if (cardTooltip != null)
         {
             cardTooltip.HideTooltip();
@@ -160,32 +145,13 @@ public class DragandDrop : MonoBehaviour,
     {
         if (!isDragging)
         {
-            Vector2 desiredPosition = originalPosition;
-
-            // Raises every card while it is the player's turn.
-            if (turnManager != null && turnManager.isPlayerTurn)
-            {
-                desiredPosition +=
-                    new Vector2(0, playerTurnMoveAmount);
-            }
-
-            // Raises the hovered card even higher.
-            if (isHovering)
-            {
-                desiredPosition +=
-                    new Vector2(0, hoverMoveAmount);
-            }
-
-            targetposition = desiredPosition;
-
-            // Smooth card scaling.
             rectTransform.localScale = Vector3.Lerp(
                 rectTransform.localScale,
                 targetScale,
                 transitionSpeed * Time.deltaTime
             );
 
-            // Smooth card movement.
+            // Smoothly moves the card upward/downward on hover.
             rectTransform.anchoredPosition = Vector2.Lerp(
                 rectTransform.anchoredPosition,
                 targetposition,
@@ -193,7 +159,6 @@ public class DragandDrop : MonoBehaviour,
             );
         }
 
-        // Smooth card rotation.
         rectTransform.localRotation = Quaternion.Lerp(
             rectTransform.localRotation,
             targetRotation,

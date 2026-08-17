@@ -19,10 +19,29 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
     public float attackSpeed = 8f;
     public float attackRotationZ = -10f;
 
+
+    // -----------------------------
+    // LOADED DICE
+    // -----------------------------
+
     [Header("Loaded Dice UI")]
-    public TextMeshProUGUI diceResultText;
+    public Image diceImage;
+
     public float diceRollDuration = 1f;
     public float diceNumberSpeed = 0.1f;
+
+    [Header("Dice Sprites")]
+    public Sprite dice1Sprite;
+    public Sprite dice2Sprite;
+    public Sprite dice3Sprite;
+    public Sprite dice4Sprite;
+    public Sprite dice5Sprite;
+    public Sprite dice6Sprite;
+
+
+    // -----------------------------
+    // COIN TOSS
+    // -----------------------------
 
     [Header("Coin Toss UI")]
     public TextMeshProUGUI coinResultText;
@@ -39,11 +58,13 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
     public float coinMoveUpDistance = 120f;
     public float coinRotationSpeed = 720f;
 
+
     private Vector2 playerStartPosition;
     private Quaternion playerStartRotation;
 
     private Vector2 coinStartPosition;
     private Quaternion coinStartRotation;
+
 
     public void Start()
     {
@@ -52,19 +73,21 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
         playerStartPosition = playerRect.anchoredPosition;
         playerStartRotation = playerRect.rotation;
 
-        // Saves the coin's starting position and rotation
-        // so it can return after the toss.
+
+        // Saves the coin's starting position and rotation.
         if (coinRect != null)
         {
             coinStartPosition = coinRect.anchoredPosition;
             coinStartRotation = coinRect.localRotation;
         }
 
-        // Makes sure the dice result starts hidden.
-        if (diceResultText != null)
+
+        // Makes sure the dice image starts hidden.
+        if (diceImage != null)
         {
-            diceResultText.gameObject.SetActive(false);
+            diceImage.gameObject.SetActive(false);
         }
+
 
         // Makes sure the coin text starts hidden.
         if (coinResultText != null)
@@ -78,6 +101,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             coinImage.gameObject.SetActive(false);
         }
     }
+
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -95,12 +119,14 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
+
         // Stops the player from using another card during the same turn.
         if (!turnManager.CanPlayerUseCard())
         {
             Debug.Log("You already used a card this turn.");
             return;
         }
+
 
         // Checks if the player has enough mana for the card.
         if (!manaManager.CanUseCard(cardData.ManaCost))
@@ -109,27 +135,29 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
+
         manaManager.SpendMana(cardData.ManaCost);
 
         Debug.Log("Player used " + cardData.cardName);
 
-        // This card affects the player instead of an enemy,
-        // so it does not need to choose an enemy target.
+
+        // This card affects the player instead of an enemy.
         if (cardData.effectType == CardEffectType.ImNotStayingDown)
         {
             ApplyCardEffect(null, cardData);
 
-            // Replaces the used card with a new random card.
             if (cardHandManager != null)
             {
                 cardHandManager.ReplaceCard(cardData.gameObject);
             }
 
             turnManager.EndPlayerTurn();
+
             return;
         }
 
-        // All attacking cards choose a random alive enemy.
+
+        // All attack cards choose a random alive enemy.
         Enemy enemy = enemyManager.GetRandomAliveEnemy();
 
         if (enemy == null)
@@ -138,30 +166,51 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             return;
         }
 
-        Debug.Log("Random enemy selected: " + enemy.gameObject.name);
 
-        StartCoroutine(PlayerAttackAnimation(enemy, cardData));
+        Debug.Log(
+            "Random enemy selected: " +
+            enemy.gameObject.name
+        );
+
+
+        StartCoroutine(
+            PlayerAttackAnimation(
+                enemy,
+                cardData
+            )
+        );
     }
 
+
     // Moves the player towards the enemy,
-    // applies the card effect, then moves back.
+    // applies the effect, then returns the player.
     private IEnumerator PlayerAttackAnimation(
         Enemy enemy,
         CardData cardData
     )
     {
         Vector2 attackPosition =
-            playerStartPosition + new Vector2(moveDistance, 0);
+            playerStartPosition +
+            new Vector2(moveDistance, 0);
 
         Quaternion attackRotation =
-            Quaternion.Euler(0, 0, attackRotationZ);
+            Quaternion.Euler(
+                0,
+                0,
+                attackRotationZ
+            );
+
 
         float timer = 0f;
+
 
         // Move towards the enemy.
         while (timer < 1f)
         {
-            timer += Time.deltaTime * attackSpeed;
+            timer +=
+                Time.deltaTime *
+                attackSpeed;
+
 
             playerRect.anchoredPosition =
                 Vector2.Lerp(
@@ -170,6 +219,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
                     timer
                 );
 
+
             playerRect.localRotation =
                 Quaternion.Lerp(
                     playerStartRotation,
@@ -177,39 +227,60 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
                     timer
                 );
 
+
             yield return null;
         }
 
-        // Loaded Dice waits for the dice roll animation
-        // before applying damage and continuing.
-        if (cardData.effectType == CardEffectType.LoadedDice)
+
+        // Loaded Dice waits for the dice animation.
+        if (
+            cardData.effectType ==
+            CardEffectType.LoadedDice
+        )
         {
             yield return StartCoroutine(
-                LoadedDiceAnimation(enemy, cardData)
+                LoadedDiceAnimation(
+                    enemy,
+                    cardData
+                )
             );
         }
 
-        // Coin Toss waits for the coin flip animation
-        // before applying its result and continuing.
-        else if (cardData.effectType == CardEffectType.CoinToss)
+
+        // Coin Toss waits for the coin animation.
+        else if (
+            cardData.effectType ==
+            CardEffectType.CoinToss
+        )
         {
             yield return StartCoroutine(
-                CoinTossAnimation(enemy, cardData)
+                CoinTossAnimation(
+                    enemy,
+                    cardData
+                )
             );
         }
+
 
         else
         {
-            // All other cards apply their effect immediately.
-            ApplyCardEffect(enemy, cardData);
+            ApplyCardEffect(
+                enemy,
+                cardData
+            );
         }
 
+
         timer = 0f;
+
 
         // Move back to the starting position.
         while (timer < 1f)
         {
-            timer += Time.deltaTime * attackSpeed;
+            timer +=
+                Time.deltaTime *
+                attackSpeed;
+
 
             playerRect.anchoredPosition =
                 Vector2.Lerp(
@@ -218,6 +289,7 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
                     timer
                 );
 
+
             playerRect.localRotation =
                 Quaternion.Lerp(
                     attackRotation,
@@ -225,87 +297,113 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
                     timer
                 );
 
+
             yield return null;
         }
 
-        // Makes sure the player finishes exactly
-        // at the original position and rotation.
-        playerRect.anchoredPosition = playerStartPosition;
-        playerRect.localRotation = playerStartRotation;
 
-        // Replaces the card after it has successfully been used.
+        playerRect.anchoredPosition =
+            playerStartPosition;
+
+        playerRect.localRotation =
+            playerStartRotation;
+
+
+        // Replaces the used card.
         if (cardHandManager != null)
         {
-            cardHandManager.ReplaceCard(cardData.gameObject);
+            cardHandManager.ReplaceCard(
+                cardData.gameObject
+            );
         }
 
-        // Enemy turn only begins once the whole card animation is finished.
+
+        // Starts the enemy turn after everything finishes.
         turnManager.EndPlayerTurn();
     }
 
-    void ApplyCardEffect(Enemy enemy, CardData cardData)
+
+    void ApplyCardEffect(
+        Enemy enemy,
+        CardData cardData
+    )
     {
         switch (cardData.effectType)
         {
             case CardEffectType.BasicAttack:
 
-                enemy.TakeDamage(cardData.Damage);
+                enemy.TakeDamage(
+                    cardData.Damage
+                );
 
                 break;
+
 
             case CardEffectType.LoadedDice:
 
-                // Loaded Dice is handled inside PlayerAttackAnimation
-                // because we need to wait for the dice roll to finish.
+                // Handled inside PlayerAttackAnimation.
 
                 break;
+
 
             case CardEffectType.CoinToss:
 
-                // Coin Toss is handled inside PlayerAttackAnimation
-                // because we need to wait for the coin flip to finish.
+                // Handled inside PlayerAttackAnimation.
 
                 break;
 
+
             case CardEffectType.BreakthroughStrike:
 
-                enemy.TakeDamage(cardData.Damage);
+                enemy.TakeDamage(
+                    cardData.Damage
+                );
 
-                // Makes the enemy take 50% extra damage
-                // from the next normal attack.
+                // Makes the enemy Vulnerable.
                 enemy.ApplyVulnerable(1);
 
                 break;
 
+
             case CardEffectType.SilentPoison:
 
-                enemy.TakeDamage(cardData.Damage);
+                enemy.TakeDamage(
+                    cardData.Damage
+                );
 
                 // Adds 3 Poison.
-                // Poison ticks at the beginning of enemy turns.
                 enemy.ApplyPoison(3);
 
                 break;
 
+
             case CardEffectType.LifeSteal:
 
-                enemy.TakeDamage(cardData.Damage);
+                enemy.TakeDamage(
+                    cardData.Damage
+                );
 
-                // Heals the player for 30% of the card's damage.
+
+                // Heals the player for 30%
+                // of the card damage.
                 if (player != null)
                 {
                     int healAmount =
-                        Mathf.RoundToInt(cardData.Damage * 0.3f);
+                        Mathf.RoundToInt(
+                            cardData.Damage *
+                            0.3f
+                        );
 
-                    player.Heal(healAmount);
+                    player.Heal(
+                        healAmount
+                    );
                 }
 
                 break;
 
+
             case CardEffectType.ImNotStayingDown:
 
-                // Player survives the next fatal enemy attack
-                // and stays alive with 1 HP.
                 if (player != null)
                 {
                     player.ActivateSurvivalProtection();
@@ -313,75 +411,178 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
 
                 break;
 
+
             default:
 
-                enemy.TakeDamage(cardData.Damage);
+                enemy.TakeDamage(
+                    cardData.Damage
+                );
 
                 break;
         }
     }
 
-    // Handles the Loaded Dice visual and damage.
+
+    // -----------------------------
+    // LOADED DICE ANIMATION
+    // -----------------------------
+
     private IEnumerator LoadedDiceAnimation(
         Enemy enemy,
         CardData cardData
     )
     {
-        // Shows the dice UI.
-        if (diceResultText != null)
+        // Shows the dice image.
+        if (diceImage != null)
         {
-            diceResultText.gameObject.SetActive(true);
+            diceImage.gameObject.SetActive(true);
         }
+
 
         float timer = 0f;
 
-        // Rapidly cycles through random numbers
-        // to make the dice look like it is rolling.
+
+        // Rapidly cycles through dice faces.
         while (timer < diceRollDuration)
         {
-            int rollingNumber = Random.Range(1, 7);
+            int rollingNumber =
+                Random.Range(1, 7);
 
-            if (diceResultText != null)
-            {
-                diceResultText.text = " " + rollingNumber;
-            }
 
-            yield return new WaitForSeconds(diceNumberSpeed);
+            // Changes the dice image
+            // to match the rolling number.
+            SetDiceSprite(
+                rollingNumber
+            );
 
-            timer += diceNumberSpeed;
+
+            yield return new WaitForSeconds(
+                diceNumberSpeed
+            );
+
+
+            timer +=
+                diceNumberSpeed;
         }
 
-        // Chooses the actual final dice result.
-        int finalRoll = Random.Range(1, 7);
 
-        if (diceResultText != null)
+        // Chooses the final dice result.
+        int finalRoll =
+            Random.Range(1, 7);
+
+
+        // Makes sure the final dice image
+        // matches the final result.
+        SetDiceSprite(
+            finalRoll
+        );
+
+
+        Debug.Log(
+            "Loaded Dice rolled: " +
+            finalRoll
+        );
+
+
+        // Leaves the final dice visible briefly.
+        yield return new WaitForSeconds(
+            0.5f
+        );
+
+
+        // Final damage =
+        // card damage multiplied by dice result.
+        int diceDamage =
+            cardData.Damage *
+            finalRoll;
+
+
+        enemy.TakeDamage(
+            diceDamage
+        );
+
+
+        yield return new WaitForSeconds(
+            0.5f
+        );
+
+
+        // Hides the dice image.
+        if (diceImage != null)
         {
-            diceResultText.text = " " + finalRoll;
-        }
-
-        Debug.Log("Loaded Dice rolled: " + finalRoll);
-
-        // Keeps the final number visible
-        // so the player has time to read it.
-        yield return new WaitForSeconds(0.5f);
-
-        // Final damage = base card damage multiplied by dice roll.
-        int diceDamage = cardData.Damage * finalRoll;
-
-        enemy.TakeDamage(diceDamage);
-
-        // Keeps the final result visible briefly
-        // after the damage appears.
-        yield return new WaitForSeconds(0.5f);
-
-        // Hides the dice UI again.
-        if (diceResultText != null)
-        {
-            diceResultText.gameObject.SetActive(false);
+            diceImage.gameObject.SetActive(false);
         }
     }
 
-    // Handles the Coin Toss visual and card result.
+
+    // Changes the dice image based
+    // on the number that was rolled.
+    private void SetDiceSprite(
+        int diceNumber
+    )
+    {
+        if (diceImage == null)
+        {
+            return;
+        }
+
+
+        switch (diceNumber)
+        {
+            case 1:
+
+                diceImage.sprite =
+                    dice1Sprite;
+
+                break;
+
+
+            case 2:
+
+                diceImage.sprite =
+                    dice2Sprite;
+
+                break;
+
+
+            case 3:
+
+                diceImage.sprite =
+                    dice3Sprite;
+
+                break;
+
+
+            case 4:
+
+                diceImage.sprite =
+                    dice4Sprite;
+
+                break;
+
+
+            case 5:
+
+                diceImage.sprite =
+                    dice5Sprite;
+
+                break;
+
+
+            case 6:
+
+                diceImage.sprite =
+                    dice6Sprite;
+
+                break;
+        }
+    }
+
+
+    // -----------------------------
+    // COIN TOSS ANIMATION
+    // -----------------------------
+
     private IEnumerator CoinTossAnimation(
         Enemy enemy,
         CardData cardData
@@ -393,138 +594,207 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             coinResultText.gameObject.SetActive(true);
         }
 
+
         // Shows the coin image.
         if (coinImage != null)
         {
             coinImage.gameObject.SetActive(true);
         }
 
+
         // Resets the coin before each toss.
         if (coinRect != null)
         {
-            coinRect.anchoredPosition = coinStartPosition;
-            coinRect.localRotation = coinStartRotation;
+            coinRect.anchoredPosition =
+                coinStartPosition;
+
+            coinRect.localRotation =
+                coinStartRotation;
         }
+
 
         float timer = 0f;
         float flipTimer = 0f;
 
-        // Coin moves upward, spins and switches
-        // between Heads and Tails during the toss.
+
+        // Coin moves upward, spins,
+        // and switches between Heads and Tails.
         while (timer < coinTossDuration)
         {
             timer += Time.deltaTime;
             flipTimer += Time.deltaTime;
 
-            float progress = timer / coinTossDuration;
+
+            float progress =
+                timer /
+                coinTossDuration;
+
 
             // Creates an up-and-down arc.
             float height =
-                Mathf.Sin(progress * Mathf.PI) *
+                Mathf.Sin(
+                    progress *
+                    Mathf.PI
+                ) *
                 coinMoveUpDistance;
+
 
             if (coinRect != null)
             {
                 coinRect.anchoredPosition =
                     coinStartPosition +
-                    new Vector2(0, height);
+                    new Vector2(
+                        0,
+                        height
+                    );
 
-                // Spins the coin during the toss.
+
                 coinRect.Rotate(
                     0f,
                     0f,
-                    coinRotationSpeed * Time.deltaTime
+                    coinRotationSpeed *
+                    Time.deltaTime
                 );
             }
 
-            // Changes Heads/Tails at the chosen flip speed.
+
+            // Changes Heads/Tails
+            // at the selected flip speed.
             if (flipTimer >= coinFlipSpeed)
             {
                 flipTimer = 0f;
 
-                int temporaryFlip = Random.Range(0, 2);
+
+                int temporaryFlip =
+                    Random.Range(
+                        0,
+                        2
+                    );
+
 
                 if (temporaryFlip == 0)
                 {
                     if (coinResultText != null)
                     {
-                        coinResultText.text = "Heads";
+                        coinResultText.text =
+                            "Heads";
                     }
+
 
                     if (coinImage != null)
                     {
-                        coinImage.sprite = headsSprite;
+                        coinImage.sprite =
+                            headsSprite;
                     }
                 }
+
+
                 else
                 {
                     if (coinResultText != null)
                     {
-                        coinResultText.text = "Tails";
+                        coinResultText.text =
+                            "Tails";
                     }
+
 
                     if (coinImage != null)
                     {
-                        coinImage.sprite = tailsSprite;
+                        coinImage.sprite =
+                            tailsSprite;
                     }
                 }
             }
 
+
             yield return null;
         }
 
-        // Returns the coin exactly to its starting position.
+
+        // Returns the coin to its starting position.
         if (coinRect != null)
         {
-            coinRect.anchoredPosition = coinStartPosition;
-            coinRect.localRotation = coinStartRotation;
+            coinRect.anchoredPosition =
+                coinStartPosition;
+
+            coinRect.localRotation =
+                coinStartRotation;
         }
 
-        // Chooses the actual final result.
-        int finalFlip = Random.Range(0, 2);
 
-        // HEADS = double damage.
+        // Chooses the final result.
+        int finalFlip =
+            Random.Range(
+                0,
+                2
+            );
+
+
+        // HEADS
         if (finalFlip == 0)
         {
             if (coinResultText != null)
             {
-                coinResultText.text = "Heads!";
+                coinResultText.text =
+                    "Heads!";
             }
+
 
             if (coinImage != null)
             {
-                coinImage.sprite = headsSprite;
+                coinImage.sprite =
+                    headsSprite;
             }
 
-            Debug.Log("Coin Toss: Heads. Double damage.");
 
-            // Gives the player time to see the result.
-            yield return new WaitForSeconds(0.5f);
+            Debug.Log(
+                "Coin Toss: Heads. Double damage."
+            );
 
-            enemy.TakeDamage(cardData.Damage * 2);
+
+            yield return new WaitForSeconds(
+                0.5f
+            );
+
+
+            enemy.TakeDamage(
+                cardData.Damage *
+                2
+            );
         }
 
-        // TAILS = normal damage and 1 Vulnerable on the player.
+
+        // TAILS
         else
         {
             if (coinResultText != null)
             {
-                coinResultText.text = "Tails!";
+                coinResultText.text =
+                    "Tails!";
             }
+
 
             if (coinImage != null)
             {
-                coinImage.sprite = tailsSprite;
+                coinImage.sprite =
+                    tailsSprite;
             }
+
 
             Debug.Log(
                 "Coin Toss: Tails. Player takes 1 Vulnerable."
             );
 
-            // Gives the player time to see the result.
-            yield return new WaitForSeconds(0.5f);
 
-            enemy.TakeDamage(cardData.Damage);
+            yield return new WaitForSeconds(
+                0.5f
+            );
+
+
+            enemy.TakeDamage(
+                cardData.Damage
+            );
+
 
             if (player != null)
             {
@@ -532,16 +802,21 @@ public class PlayerDropZone : MonoBehaviour, IDropHandler
             }
         }
 
-        // Keeps the final coin result visible briefly.
-        yield return new WaitForSeconds(0.5f);
 
-        // Hides the coin text again.
+        // Keeps the final coin visible briefly.
+        yield return new WaitForSeconds(
+            0.5f
+        );
+
+
+        // Hides the coin text.
         if (coinResultText != null)
         {
             coinResultText.gameObject.SetActive(false);
         }
 
-        // Hides the coin image again.
+
+        // Hides the coin image.
         if (coinImage != null)
         {
             coinImage.gameObject.SetActive(false);
