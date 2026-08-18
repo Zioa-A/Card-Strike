@@ -4492,10 +4492,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_2
       objectReference: {fileID: 0}
+    - target: {fileID: 6305931927242026475, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2691162081737138541, guid: b43ffa7e3ff1f444f89510fe8e10900c, type: 3}
+    - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
+      propertyPath: maxHealth
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 600646685}
+    - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
+      propertyPath: attackDamage
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: enemyManager
       value: 
@@ -4526,11 +4538,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 76.3361
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 144.084
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4562,11 +4574,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -187.6
+      value: -175.76802
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -74.9
+      value: -77.85799
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5730,7 +5742,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 2
+  m_text: Level  4
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6778,14 +6790,18 @@ PrefabInstance:
     - target: {fileID: 6305931927242026475, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1724931870806393335, guid: 4d417c35a82b5324791fe0cd017ad19e, type: 3}
+      objectReference: {fileID: 2691162081737138541, guid: b43ffa7e3ff1f444f89510fe8e10900c, type: 3}
+    - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
+      propertyPath: maxHealth
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 600646685}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: attackDamage
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: enemyManager
@@ -6817,7 +6833,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 105.8869
+      value: 86.3187
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_SizeDelta.y
@@ -6853,7 +6869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -317.42477
+      value: -307.64066
       objectReference: {fileID: 0}
     - target: {fileID: 8692932600462248725, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: m_AnchoredPosition.y

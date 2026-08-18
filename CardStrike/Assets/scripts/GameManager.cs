@@ -48,11 +48,27 @@ public class GameManager : MonoBehaviour
             StartCoroutine(GoToLevel2AfterDelay());
         }
 
-        // Level 2 stays on the Victory panel.
+        // Level 2 stays on the Victory panel. Changes to the Code by Michail to add more scenes
         else if (SceneManager.GetActiveScene().name == "Level 2")
         {
-            Debug.Log("Final level cleared. Victory!");
+            StartCoroutine(GoToLevel3AfterDelay());
+            //Debug.Log("Final level cleared. Victory!");
         }
+
+        else if (SceneManager.GetActiveScene().name == "Level 3")
+        {
+            StartCoroutine(GoToLevel4AfterDelay());
+
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 4")
+        {
+            StartCoroutine(GoToLevel5AfterDelay());
+        }
+        else if (SceneManager.GetActiveScene().name == "Level 5")
+        {
+            Debug.Log("Thanks for playing the demo!");
+        }
+
     }
 
     public void PlayerLoses()
@@ -108,6 +124,27 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene("Level 2");
+    }
+    // Adding more scenes with delay logic from before
+    private IEnumerator GoToLevel3AfterDelay()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("Level 3");
+    }
+
+    private IEnumerator GoToLevel4AfterDelay()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("Level 4");
+    }
+
+    private IEnumerator GoToLevel5AfterDelay()
+    {
+        yield return new WaitForSeconds(2f);
+
+        SceneManager.LoadScene("Level 5");
     }
 
     public void Quit()
