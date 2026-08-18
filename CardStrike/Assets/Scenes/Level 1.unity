@@ -1299,9 +1299,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manaManager: {fileID: 80516983}
   turnManager: {fileID: 600646683}
-  enemyManager: {fileID: 0}
-  player: {fileID: 0}
-  cardHandManager: {fileID: 0}
+  enemyManager: {fileID: 442429683}
+  player: {fileID: 2030747937}
+  cardHandManager: {fileID: 600646686}
   playerRect: {fileID: 2030747934}
   moveDistance: 80
   attackSpeed: 8
@@ -1764,8 +1764,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b765979786024534b89ad26fff83220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardHandManager
-  fadeOutTime: 0.3
-  fadeInTime: 0.3
+  fadeOutTime: 0.5
+  fadeInTime: 0.5
 --- !u!114 &600646687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6687,23 +6687,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: Damage
-      value: 7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: ManaCost
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardName
-      value: Coin Toss
+      value: I'm Not Staying Down
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: effectType
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7334183835497097638, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: cardDescription
-      value: Deal 7 damage. Heads deals 7 extra damage. Tails makes the player Vulnerable.
+      value: Survive the next fatal enemy attack with 1 HP.
       objectReference: {fileID: 0}
     - target: {fileID: 7375404888775063680, guid: 562e84b06091e9a49b5ba732660593e8, type: 3}
       propertyPath: m_Color.b
