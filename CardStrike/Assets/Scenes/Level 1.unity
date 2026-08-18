@@ -616,7 +616,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 600646685}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: RestartGame
         m_Mode: 1
@@ -1751,7 +1751,7 @@ MonoBehaviour:
   isGameOver: 0
   stageClearPanel: {fileID: 1245602574}
   losePanel: {fileID: 2092200284}
-  pausePanel: {fileID: 1663034182}
+  pausePanel: {fileID: 1857245188}
 --- !u!114 &600646686
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 600646685}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: Quit
         m_Mode: 1
@@ -3001,7 +3001,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 600646685}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: MainMenu
         m_Mode: 1
