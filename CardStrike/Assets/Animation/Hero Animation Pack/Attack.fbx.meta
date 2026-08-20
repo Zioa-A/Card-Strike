@@ -22,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -83,7 +83,202 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: Attack(Clone)
+      parentName: 
+      position: {x: -0, y: -0.4350525, z: 1.2685323}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 0.5767486, z: 0.5767486}
+    - name: Main_bone
+      parentName: Attack(Clone)
+      position: {x: 0.019712329, y: 2.6060863, z: -2.1994545}
+      rotation: {x: -0.0000045974025, y: 0.0000070652786, z: -0.5454028, w: 0.83817405}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_19
+      parentName: Main_bone
+      position: {x: -0.08443049, y: -0.23998187, z: -1.8747336e-17}
+      rotation: {x: -0.0000022077727, y: -0.00000027349233, z: 0.98538196, w: 0.17035988}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_110
+      parentName: Left_leg_pose_19
+      position: {x: -0.72784775, y: 0.05180697, z: 1.7678328e-18}
+      rotation: {x: 1.3759326e-18, y: 1.3528648e-17, z: -0.038589764, w: 0.9992552}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_111
+      parentName: Left_leg_pose_110
+      position: {x: -1.0671154, y: -0.006593504, z: -2.6425519e-17}
+      rotation: {x: 0.49295866, y: 0.31351566, z: -0.43381265, w: 0.6859347}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_112
+      parentName: Left_leg_pose_111
+      position: {x: -0.34389576, y: -0.1096407, z: 2.4657688e-17}
+      rotation: {x: -0.15444922, y: -0.69003296, z: -0.15444922, w: 0.69003296}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine
+      parentName: Main_bone
+      position: {x: -0.3310608, y: 0.009172406, z: -7.409781e-17}
+      rotation: {x: 0.0002628229, y: 1.7547083e-16, z: -4.476105e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest
+      parentName: Spine
+      position: {x: -0.42111078, y: 0.17655884, z: -3.8097308e-16}
+      rotation: {x: -6.4996934e-17, y: 1.556859e-17, z: -0.23293896, w: 0.9724914}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Neck
+      parentName: Chest
+      position: {x: -0.26112175, y: -0.03163218, z: -1.0603463e-17}
+      rotation: {x: 0.9994814, y: -0.032180462, z: -0.00084276794, w: -0.00083582196}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Neck
+      position: {x: -0.36092335, y: -0.036640506, z: -1.5321187e-17}
+      rotation: {x: -0.48625645, y: 0.5133758, z: 0.48625645, w: 0.5133758}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair_1
+      parentName: Head
+      position: {x: 2.2972328e-17, y: -0.1330194, z: -0.17925863}
+      rotation: {x: -0.48297286, y: -0.5141836, z: 0.48095286, w: 0.52061194}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hair_2
+      parentName: Hair_1
+      position: {x: -0.29202577, y: 3.2197895e-16, z: 6.556126e-17}
+      rotation: {x: 0.47878334, y: 0.5203523, z: -0.47878334, w: 0.5203523}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_11
+      parentName: Chest
+      position: {x: -0.0029632803, y: -0.26872993, z: -7.888609e-33}
+      rotation: {x: -0.00031284124, y: 0.000078748635, z: 0.68630195, w: 0.7273167}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_12
+      parentName: Left_Hand_pose_11
+      position: {x: -0.5217974, y: 8.8817837e-17, z: 0}
+      rotation: {x: 0.22871962, y: 0.9734923, z: -4.5604174e-17, w: -7.361425e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_13
+      parentName: Left_Hand_pose_12
+      position: {x: -0.49726927, y: -0.06479277, z: -6.3254162e-18}
+      rotation: {x: 0.00035850322, y: 0.006362708, z: -0.028947901, w: 0.99956065}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_14
+      parentName: Left_Hand_pose_13
+      position: {x: -0.24128455, y: 0.029586988, z: 3.1702888e-18}
+      rotation: {x: 0.5066839, y: 0.49322554, z: -0.5066839, w: 0.49322554}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_15
+      parentName: Chest
+      position: {x: 0.08378432, y: 0.24215156, z: -7.888609e-33}
+      rotation: {x: -0.12498165, y: 0.99215907, z: -0.00027243493, w: -0.000016949922}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_16
+      parentName: Right_Hand_pose_15
+      position: {x: -0.36673084, y: -1.6004312e-16, z: -4.6842792e-32}
+      rotation: {x: -2.001944e-33, y: -3.9345497e-32, z: -0.000015950214, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_17
+      parentName: Right_Hand_pose_16
+      position: {x: -0.49211654, y: 2.1545652e-16, z: -2.4233538e-32}
+      rotation: {x: 0, y: -0, z: -0.004612183, w: 0.9999894}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_18
+      parentName: Right_Hand_pose_17
+      position: {x: -0.26163122, y: -1.3886842e-16, z: 3.2248538e-33}
+      rotation: {x: 0.39597392, y: 0.5858367, z: -0.39597392, w: 0.5858367}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_227
+      parentName: Chest
+      position: {x: 0.0027993985, y: -0.26493618, z: -1.07641145e-16}
+      rotation: {x: -0.00023957613, y: 0.00014020964, z: 0.8475224, w: 0.5307597}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_228
+      parentName: Left_Hand_pose_227
+      position: {x: -0.45782983, y: 1.0977532e-15, z: 1.01658644e-16}
+      rotation: {x: -0.0000005595794, y: -0.00000501753, z: -0.03857592, w: 0.9992557}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_229
+      parentName: Left_Hand_pose_228
+      position: {x: -0.52716917, y: 5.1606583e-16, z: 1.3694519e-16}
+      rotation: {x: 0, y: -0, z: -0.19267884, w: 0.9812619}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_Hand_pose_230
+      parentName: Left_Hand_pose_229
+      position: {x: -0.27248493, y: 7.035453e-16, z: 7.358635e-17}
+      rotation: {x: -0.28738603, y: -0.6460722, z: -0.28738603, w: 0.6460722}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform1
+      parentName: Chest
+      position: {x: 3.6606286, y: 5.70929, z: 1.4223125e-15}
+      rotation: {x: 0.46635982, y: -0.5315153, z: 0.46635982, w: 0.5315153}
+      scale: {x: 1, y: 1.7338576, z: 1.7338576}
+    - name: Right_Hand_pose_256
+      parentName: transform1
+      position: {x: -0, y: 1.6348337, z: 3.3948333}
+      rotation: {x: 0.055177003, y: -0.7039041, z: -0.056622222, w: 0.70588136}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_257
+      parentName: Right_Hand_pose_256
+      position: {x: -0.21111347, y: 0.015056174, z: 0}
+      rotation: {x: 0.15963835, y: 0.68885094, z: -0.15963835, w: 0.68885094}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_258
+      parentName: Right_Hand_pose_257
+      position: {x: -5.546678e-34, y: 0.042361796, z: 0.170934}
+      rotation: {x: -0.6794633, y: -0.19040161, z: -0.6823423, w: -0.19101313}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Right_Hand_pose_259
+      parentName: Right_Hand_pose_258
+      position: {x: -0.08956412, y: 0.010945014, z: -3.6454218e-18}
+      rotation: {x: 0.33365396, y: -0.6234381, z: 0.33365396, w: 0.6234381}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_leg33
+      parentName: Main_bone
+      position: {x: 0.08551408, y: 0.19638105, z: 1.8987941e-17}
+      rotation: {x: 0.23767196, y: 0.9713455, z: 0.0000014737213, w: -0.0000021002325}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_leg34
+      parentName: right_leg33
+      position: {x: -0.64706945, y: 0.040144544, z: -3.0119184e-16}
+      rotation: {x: 0.96728194, y: 0.23493443, z: -0.07791456, w: 0.055685412}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_leg35
+      parentName: right_leg34
+      position: {x: -1.1289158, y: 0.044541158, z: 5.0363997e-16}
+      rotation: {x: 0.461422, y: 0.8871808, z: -2.6070207e-17, w: -8.25781e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: right_leg36
+      parentName: right_leg35
+      position: {x: -0.37412465, y: 3.5527136e-17, z: -1.0649482e-17}
+      rotation: {x: 0.013564259, y: 0.75878614, z: 0.064362586, w: 0.64801013}
+      scale: {x: 1, y: 1, z: 1}
+    - name: transform2
+      parentName: Main_bone
+      position: {x: 4.3587146, y: 4.5760274, z: 9.678291e-16}
+      rotation: {x: 0.38565806, y: -0.59267855, z: 0.38565806, w: 0.59267855}
+      scale: {x: 1, y: 1.7338576, z: 1.7338576}
+    - name: transform4
+      parentName: Main_bone
+      position: {x: 4.3587146, y: 4.5760274, z: 9.678291e-16}
+      rotation: {x: 0.38565806, y: -0.59267855, z: 0.38565806, w: 0.59267855}
+      scale: {x: 1, y: 1.7338576, z: 1.7338576}
+    - name: Left_leg_pose_260
+      parentName: transform4
+      position: {x: -0, y: 1.2141284, z: 3.574217}
+      rotation: {x: -0.15260884, y: 0.15260884, z: 0.6904423, w: 0.6904423}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_261
+      parentName: Left_leg_pose_260
+      position: {x: -0.42094484, y: 0, z: 0}
+      rotation: {x: 0.64713895, y: 0.28497577, z: -0.28497577, w: 0.64713895}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_262
+      parentName: Left_leg_pose_261
+      position: {x: -0.64284545, y: 0, z: 0}
+      rotation: {x: 0.81682587, y: 0.57688427, z: 3.5551382e-17, w: 4.9855555e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Left_leg_pose_263
+      parentName: Left_leg_pose_262
+      position: {x: -0.2517727, y: -5.3290704e-17, z: -1.9721522e-33}
+      rotation: {x: 0.22852483, y: 0.66916096, z: -0.22852483, w: 0.66916096}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -100,7 +295,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

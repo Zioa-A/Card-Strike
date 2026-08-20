@@ -114,6 +114,11 @@ public class GameManager : MonoBehaviour
     // Used by the Play button on the main menu.
     public void StartGame()
     {
+        SceneManager.LoadScene("Story");
+    }
+    // made for the story button to skip story and play the game
+    public void SkipStory()
+    {
         SceneManager.LoadScene("Level 1");
     }
 
