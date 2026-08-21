@@ -202,7 +202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 502400357645485800, guid: 4a0793e897086544eb02e5a9dbf2313b, type: 3}
+  m_Sprite: {fileID: 8721560452767514262, guid: 60b6dc22bd782cf45ad20c42290052cf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deal 6 damage to a random enemy.
+  m_text: Deal 3 damage to a random enemy.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -445,9 +445,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Basic Attack
   ManaCost: 1
-  Damage: 6
+  Damage: 3
   effectType: 0
-  cardDescription: Deal 6 damage to a random enemy.
+  cardDescription: Deal 3 damage to a random enemy.
   cardNameText: {fileID: 3686106944467760596}
   costText: {fileID: 1912692684590860321}
   damageText: {fileID: 955968653056025734}
@@ -459,7 +459,7 @@ MonoBehaviour:
   iAmNotStayingDown: {fileID: 1902048459711281462, guid: 3d639482ef65a6448a33fdb781b446d9, type: 3}
   coinToss: {fileID: -4721683935654199207, guid: f7fe315eb632dd74b8b6b5e4a7807c24, type: 3}
   breakthroughStrike: {fileID: 2127402940067570402, guid: f9bfcec16469b7a46b047ed283403c55, type: 3}
-  basicAttack: {fileID: 502400357645485800, guid: 4a0793e897086544eb02e5a9dbf2313b, type: 3}
+  basicAttack: {fileID: 8721560452767514262, guid: 60b6dc22bd782cf45ad20c42290052cf, type: 3}
 --- !u!114 &7655563364313245050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +478,7 @@ MonoBehaviour:
   hoverScale: 1.1
   dragedScale: 1.15
   hoverMoveAmount: 20
+  cardTooltip: {fileID: 0}
 --- !u!1 &6821630283430341722
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +544,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage: 6'
+  m_text: 'Damage: 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

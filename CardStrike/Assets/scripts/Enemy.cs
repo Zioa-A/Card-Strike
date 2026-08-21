@@ -24,8 +24,16 @@ public class Enemy : MonoBehaviour
     public float attackSpeed = 8f;
     public float attackRotationZ = 10f;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
+    public AudioClip goblinAttackSound;
+    public AudioClip skeletonAttackSound;
+    public AudioClip orcAttackSound;
+
     private Vector2 enemyStartPosition;
     private Quaternion enemyStartRotation;
+
 
     [Header("UI")]
     public TextMeshProUGUI healthText;
@@ -193,6 +201,7 @@ public class Enemy : MonoBehaviour
         Quaternion attackRotation =
             Quaternion.Euler(0, 0, attackRotationZ);
 
+
         float timer = 0f;
 
         // Move towards the player.
@@ -208,6 +217,9 @@ public class Enemy : MonoBehaviour
 
             yield return null;
         }
+
+        PlayAttackSound();
+
 
         // Damage happens when the enemy reaches the player.
         player.TakeDamage(attackDamage);
@@ -281,6 +293,27 @@ public class Enemy : MonoBehaviour
                     false, false
                 );
             }
+        }
+    }
+
+    void PlayAttackSound()
+    {
+        if (audioSource == null)
+        {
+            return;
+        }
+
+        if (CompareTag("Goblin"))
+        {
+            audioSource.PlayOneShot(goblinAttackSound);
+        }
+        else if (CompareTag("Skeleton"))
+        {
+            audioSource.PlayOneShot(skeletonAttackSound);
+        }
+        else if (CompareTag("Orc"))
+        {
+            audioSource.PlayOneShot(orcAttackSound);
         }
     }
 }

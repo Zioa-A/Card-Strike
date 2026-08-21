@@ -178,6 +178,10 @@ MonoBehaviour:
   moveDistance: -80
   attackSpeed: 8
   attackRotationZ: 10
+  audioSource: {fileID: 0}
+  goblinAttackSound: {fileID: 8300000, guid: 6f0c55c52b1729345bf57bbf58656f6a, type: 3}
+  skeletonAttackSound: {fileID: 8300000, guid: 909efb548b3e22147b98143547694c18, type: 3}
+  orcAttackSound: {fileID: 8300000, guid: 977934dcf28a5bd49ae3847af5692e5f, type: 3}
   healthText: {fileID: 6522469415266344190}
   poisonIcon: {fileID: 7718971788213313716}
   vulnerableIcon: {fileID: 20518121655733172}
