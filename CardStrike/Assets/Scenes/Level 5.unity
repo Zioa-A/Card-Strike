@@ -625,14 +625,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8235294}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -14787699904394306, guid: bd945f3bfcdb79c4a9a9cadc40ada620, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2694,7 +2694,7 @@ MonoBehaviour:
   isPlayerTurn: 1
   playerUsedCard: 0
   firstEnemyAttackDelay: 1
-  delayBetweenEnemyAttacks: 0.5
+  delayBetweenEnemyAttacks: 1.2
   player: {fileID: 2030747937}
   enemyManager: {fileID: 442429683}
   manaManager: {fileID: 80516983}
@@ -4364,7 +4364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Mana \n12 \\ 12"
+  m_text: 12 \ 12
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4391,8 +4391,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 23
+  m_fontSizeBase: 23
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8028,9 +8028,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8803266551316184814, guid: f3e566128c2393444ac280d183ce6d6e, type: 3}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
+      propertyPath: enemyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: maxHealth
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 871162449}
     - target: {fileID: 6512880740077135148, guid: d19dfdefa6ea3ff4c88a472d14f7ea4b, type: 3}
       propertyPath: gameManager
       value: 

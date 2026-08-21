@@ -2,10 +2,21 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
+// Different enemy types use different attack sounds.
+public enum EnemyType
+{
+    Goblin,
+    Skeleton,
+    Orc
+}
+
 public class Enemy : MonoBehaviour
 {
     [Header("Managers")]
     public EnemyManager enemyManager;
+
+    [Header("Enemy Type")]
+    public EnemyType enemyType;
 
     [Header("Health Settings")]
     public int maxHealth = 50;
@@ -24,22 +35,13 @@ public class Enemy : MonoBehaviour
     public float attackSpeed = 8f;
     public float attackRotationZ = 10f;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
-
-    public AudioClip goblinAttackSound;
-    public AudioClip skeletonAttackSound;
-    public AudioClip orcAttackSound;
-
     private Vector2 enemyStartPosition;
     private Quaternion enemyStartRotation;
-
 
     [Header("UI")]
     public TextMeshProUGUI healthText;
 
-    // Temporary status icons.
-    // These can later be replaced with proper UI images from the artist.
+    // Status effect icons.
     public GameObject poisonIcon;
     public GameObject vulnerableIcon;
 
@@ -47,12 +49,18 @@ public class Enemy : MonoBehaviour
     public GameObject damagePopupPrefab;
     public Transform damagePopupSpawnPoint;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip goblinAttackSound;
+    public AudioClip skeletonAttackSound;
+    public AudioClip orcAttackSound;
+
     void Start()
     {
         currentHealth = maxHealth;
         UpdateHealthUI();
 
-        // Save starting position and rotation for attack animation
+        // Save starting position and rotation for attack animation.
         enemyStartPosition = enemyRect.anchoredPosition;
         enemyStartRotation = enemyRect.localRotation;
     }
@@ -60,6 +68,7 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         int finalDamage = damageAmount;
+        bool vulnerableTriggered = false;
 
         // If the enemy is Vulnerable, the next normal attack
         // deals 50% extra damage and removes 1 Vulnerable.
@@ -67,6 +76,8 @@ public class Enemy : MonoBehaviour
         {
             finalDamage = Mathf.RoundToInt(finalDamage * 1.5f);
             vulnerableAmount--;
+
+            vulnerableTriggered = true;
 
             // Hides the Vulnerable icon once the effect has been used up.
             if (vulnerableAmount <= 0 && vulnerableIcon != null)
@@ -83,9 +94,12 @@ public class Enemy : MonoBehaviour
 
         currentHealth -= finalDamage;
 
-        // false means this is normal damage,
-        // so the popup uses the normal damage colour.
-        ShowDamagePopup(finalDamage, false);
+        // Shows normal damage or red Vulnerable damage.
+        ShowDamagePopup(
+            finalDamage,
+            false,
+            vulnerableTriggered
+        );
 
         // Stops health from going below 0.
         if (currentHealth < 0)
@@ -171,9 +185,12 @@ public class Enemy : MonoBehaviour
         // This prevents poison from consuming Vulnerable.
         currentHealth -= poisonDamage;
 
-        // true means this is poison damage,
-        // so DamagePopup can display it differently.
-        ShowDamagePopup(poisonDamage, true);
+        // Shows purple poison damage.
+        ShowDamagePopup(
+            poisonDamage,
+            true,
+            false
+        );
 
         if (currentHealth < 0)
         {
@@ -189,37 +206,61 @@ public class Enemy : MonoBehaviour
 
     public void AttackPlayer(Player player, TurnManager turnManager)
     {
-        StartCoroutine(EnemyAttackAnimation(player, turnManager));
+        StartCoroutine(
+            EnemyAttackAnimation(
+                player,
+                turnManager
+            )
+        );
     }
 
-    // Enemy moves forward, damages the player, then moves back
-    private IEnumerator EnemyAttackAnimation(Player player, TurnManager turnManager)
+    // Enemy moves forward, damages the player,
+    // then moves back to its starting position.
+    private IEnumerator EnemyAttackAnimation(
+        Player player,
+        TurnManager turnManager
+    )
     {
         Vector2 attackPosition =
-            enemyStartPosition + new Vector2(moveDistance, 0);
+            enemyStartPosition +
+            new Vector2(moveDistance, 0);
 
         Quaternion attackRotation =
-            Quaternion.Euler(0, 0, attackRotationZ);
-
+            Quaternion.Euler(
+                0,
+                0,
+                attackRotationZ
+            );
 
         float timer = 0f;
 
         // Move towards the player.
         while (timer < 1f)
         {
-            timer += Time.deltaTime * attackSpeed;
+            timer +=
+                Time.deltaTime *
+                attackSpeed;
 
             enemyRect.anchoredPosition =
-                Vector2.Lerp(enemyStartPosition, attackPosition, timer);
+                Vector2.Lerp(
+                    enemyStartPosition,
+                    attackPosition,
+                    timer
+                );
 
             enemyRect.localRotation =
-                Quaternion.Lerp(enemyStartRotation, attackRotation, timer);
+                Quaternion.Lerp(
+                    enemyStartRotation,
+                    attackRotation,
+                    timer
+                );
 
             yield return null;
         }
 
+        // Plays the attack sound based on
+        // whether this enemy is a Goblin, Skeleton or Orc.
         PlayAttackSound();
-
 
         // Damage happens when the enemy reaches the player.
         player.TakeDamage(attackDamage);
@@ -229,20 +270,78 @@ public class Enemy : MonoBehaviour
         // Move back to the original position.
         while (timer < 1f)
         {
-            timer += Time.deltaTime * attackSpeed;
+            timer +=
+                Time.deltaTime *
+                attackSpeed;
 
             enemyRect.anchoredPosition =
-                Vector2.Lerp(attackPosition, enemyStartPosition, timer);
+                Vector2.Lerp(
+                    attackPosition,
+                    enemyStartPosition,
+                    timer
+                );
 
             enemyRect.localRotation =
-                Quaternion.Lerp(attackRotation, enemyStartRotation, timer);
+                Quaternion.Lerp(
+                    attackRotation,
+                    enemyStartRotation,
+                    timer
+                );
 
             yield return null;
         }
 
         // Makes sure the enemy ends exactly where it started.
-        enemyRect.anchoredPosition = enemyStartPosition;
-        enemyRect.localRotation = enemyStartRotation;
+        enemyRect.anchoredPosition =
+            enemyStartPosition;
+
+        enemyRect.localRotation =
+            enemyStartRotation;
+    }
+
+    // Plays the correct sound based on the Enemy Type dropdown.
+    private void PlayAttackSound()
+    {
+        if (audioSource == null)
+        {
+            return;
+        }
+
+        switch (enemyType)
+        {
+            case EnemyType.Goblin:
+
+                if (goblinAttackSound != null)
+                {
+                    audioSource.PlayOneShot(
+                        goblinAttackSound
+                    );
+                }
+
+                break;
+
+            case EnemyType.Skeleton:
+
+                if (skeletonAttackSound != null)
+                {
+                    audioSource.PlayOneShot(
+                        skeletonAttackSound
+                    );
+                }
+
+                break;
+
+            case EnemyType.Orc:
+
+                if (orcAttackSound != null)
+                {
+                    audioSource.PlayOneShot(
+                        orcAttackSound
+                    );
+                }
+
+                break;
+        }
     }
 
     public void UpdateHealthUI()
@@ -260,7 +359,10 @@ public class Enemy : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            Debug.Log(gameObject.name + " defeated!");
+            Debug.Log(
+                gameObject.name +
+                " defeated!"
+            );
 
             if (enemyManager != null)
             {
@@ -269,18 +371,25 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    // Creates the damage popup and tells it
-    // whether the damage is normal or poison damage.
-    void ShowDamagePopup(int damageAmount, bool isPoisonDamage)
+    // Creates normal, poison or Vulnerable damage popups.
+    void ShowDamagePopup(
+        int damageAmount,
+        bool isPoisonDamage,
+        bool isVulnerableDamage
+    )
     {
-        if (damagePopupPrefab != null && damagePopupSpawnPoint != null)
+        if (
+            damagePopupPrefab != null &&
+            damagePopupSpawnPoint != null
+        )
         {
-            GameObject popup = Instantiate(
-                damagePopupPrefab,
-                damagePopupSpawnPoint.position,
-                Quaternion.identity,
-                damagePopupSpawnPoint.parent
-            );
+            GameObject popup =
+                Instantiate(
+                    damagePopupPrefab,
+                    damagePopupSpawnPoint.position,
+                    Quaternion.identity,
+                    damagePopupSpawnPoint.parent
+                );
 
             DamagePopup damagePopup =
                 popup.GetComponent<DamagePopup>();
@@ -290,30 +399,10 @@ public class Enemy : MonoBehaviour
                 damagePopup.Setup(
                     damageAmount,
                     isPoisonDamage,
-                    false, false
+                    isVulnerableDamage,
+                    false
                 );
             }
-        }
-    }
-
-    void PlayAttackSound()
-    {
-        if (audioSource == null)
-        {
-            return;
-        }
-
-        if (CompareTag("Goblin"))
-        {
-            audioSource.PlayOneShot(goblinAttackSound);
-        }
-        else if (CompareTag("Skeleton"))
-        {
-            audioSource.PlayOneShot(skeletonAttackSound);
-        }
-        else if (CompareTag("Orc"))
-        {
-            audioSource.PlayOneShot(orcAttackSound);
         }
     }
 }
